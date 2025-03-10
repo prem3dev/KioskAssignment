@@ -32,7 +32,7 @@ public class Menu {
 
     public void printTotalBurgerList() {
         int index = 0;
-        for (MenuItem d : burger) {
+        for (MenuItem d : getBurgerList()) {
             ++index;
             System.out.println("--------------------");
             System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
@@ -57,7 +57,7 @@ public class Menu {
 
         public void printTotalDrinkList (){
             int index = 0;
-            for (MenuItem d : drink) {
+            for (MenuItem d : getDrinkList()) {
                 ++index;
                 System.out.println("--------------------");
                 System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
@@ -81,7 +81,7 @@ public class Menu {
 
         public void printTotalDessertList (){
             int index = 0;
-            for (MenuItem d : dessert) {
+            for (MenuItem d : getDessertList()) {
                 ++index;
                 System.out.println("--------------------");
                 System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());

@@ -20,5 +20,8 @@ public class Main {
         menu.setDessert(new MenuItem("iceCream", 2000, "시원한 바닐라 아이스크림"));
         //Kiosk 클래스 생성자를 이용하여 MenuItem추가리스트를 MenuItemList에 추가
 
+        Kiosk kiosk = new Kiosk();
+
+        kiosk.start();
+        }
     }
-}
