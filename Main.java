@@ -35,7 +35,7 @@ public class Main {
         try {
             int inputNumber = scanner.nextInt();
             System.out.println((menuItemList.get(inputNumber-1).getHanmbergerName()) + "를 선택하셨습니다.\n" +
-                    "결제금액은 " + menuItemList.get(inputNumber-1).getHambergerPrice() + "원 입니다.\n" +
+                    "결제 금액은 " + menuItemList.get(inputNumber-1).getHambergerPrice() + "원 입니다.\n" +
                     "감사합니다. 좋은 하루 되세요");
         } catch (Exception e) {
             System.out.println("잘못된 번호입니다.");
