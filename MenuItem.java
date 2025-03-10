@@ -4,31 +4,37 @@ public class MenuItem {
 
 
     //속성
-    private String hanmbergerName;
-    private Integer hambergerPrice;
-    private String hambergerContents;
+    private String Name;
+    private Integer Price;
+    private String Contents;
 
-    MenuItem(String hamberName, Integer hambergerPrice, String hambergerContents) {
-        this.hanmbergerName = hamberName;
-        this.hambergerPrice = hambergerPrice;
-        this.hambergerContents = hambergerContents;
+    MenuItem(String Name, Integer Price, String Contents) {
+        this.Name = Name;
+        this.Price = Price;
+        this.Contents = Contents;
     }
 
-    public String getHanmbergerName() {
-        return this.hanmbergerName;
+    public String getName() {
+        return this.Name;
     }
 
-    public Integer getHambergerPrice() {
-        return this.hambergerPrice;
+    public Integer getPrice() {
+        return this.Price;
     }
 
-    public String getHambergerContents() {
-        return this.hambergerContents;
+    public String getContents() {
+        return this.Contents;
     }
 
-    public void setMenuItem(String hambergerName, Integer hambergerPrice, String hambergerContents) {
-        this.hanmbergerName = hambergerName;
-        this.hambergerPrice = hambergerPrice;
-        this.hambergerContents = hambergerContents;
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public void setPrice(Integer Price) {
+        this.Price = Price;
+    }
+
+    public void setContents(String Contents) {
+        this.Contents = Contents;
     }
 }
