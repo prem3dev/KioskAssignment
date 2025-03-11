@@ -4,87 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    //MenuItem 클래스로 이루어진 리스트 menuItemList 생성
+    //Menu 클래스 속성
+    //카테고리 이름 필드 추가
+    private String categoryName;
 
-    private List<MenuItem> burger = new ArrayList<>();
+    // MenuItem 클래스를 List로 관리
+    private List<MenuItem> menuItemList = new ArrayList<>();
 
-    private List<MenuItem> drink = new ArrayList<>();
-
-    private List<MenuItem> dessert = new ArrayList<>();
-
-
-    public String getFieldMenu1() {
-        try {
-            return Menu.class.getField(burger.toString()).getName();
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
-
+    //Menu 클래스 생성자
+    Menu(String name) {
+        this.categoryName = name;
     }
 
-    public void setBurgerList(MenuItem menuItem) {
-        burger.add(menuItem);
+    //Menu 클래스 메서드
+    //메뉴 카테고리 이름을 반환하는 메서드
+    public String getcategoryName() {
+        return this.categoryName;
     }
 
-    public List<MenuItem> getBurgerList() {
-        return burger;
+    //menuItemList에 MenuItem 객체를 추가하는 메서드
+    public void addMenuList(MenuItem menuItem) {
+        menuItemList.add(menuItem);
     }
 
-    public void printTotalBurgerList() {
+    //menuItemList를 반환하는 메서드
+    public List<MenuItem> getMenuItemList() {
+        return menuItemList;
+    }
+
+    //menuItemList에 포함된 MenuItem을 순차적으로 보여주는 함수
+    public void printmenuItemList() {
+        System.out.println("[" + getcategoryName() + " MENU]");
         int index = 0;
-        for (MenuItem d : getBurgerList()) {
+        for (MenuItem d : getMenuItemList()) {
             ++index;
             System.out.println("--------------------");
             System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
         }
     }
-
-    public String getFieldMenu2() {
-        try {
-            return Menu.class.getField(drink.toString()).getName();
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-        public void setDrinkList (MenuItem menuItem){
-            drink.add(menuItem);
-        }
-
-        public List<MenuItem> getDrinkList () {
-            return drink;
-        }
-
-        public void printTotalDrinkList (){
-            int index = 0;
-            for (MenuItem d : getDrinkList()) {
-                ++index;
-                System.out.println("--------------------");
-                System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
-            }
-        }
-    public String getFieldMenu3 () {
-        try {
-            return Menu.class.getField(dessert.toString()).getName();
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-        public void setDessert (MenuItem menuItem){
-            dessert.add(menuItem);
-        }
-
-        public List<MenuItem> getDessertList () {
-            return dessert;
-        }
-
-        public void printTotalDessertList (){
-            int index = 0;
-            for (MenuItem d : getDessertList()) {
-                ++index;
-                System.out.println("--------------------");
-                System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
-            }
-        }
-    }
+}
