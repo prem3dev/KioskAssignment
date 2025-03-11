@@ -18,8 +18,13 @@ public class Menu {
 
     //Menu 클래스 메서드
     //메뉴 카테고리 이름을 반환하는 메서드
-    public String getcategoryName() {
+    public String getCategoryName() {
         return this.categoryName;
+    }
+
+    //카테고리 이름을 설정하는 메서드
+    public void setCategoryName(String name) {
+        this.categoryName = name;
     }
 
     //menuItemList에 MenuItem 객체를 추가하는 메서드
@@ -32,9 +37,14 @@ public class Menu {
         return menuItemList;
     }
 
+    //menuItemList를 설정하는 메서드
+    public void setMenuItemList(int setNumber, MenuItem menuItem) {
+        menuItemList.set(setNumber, menuItem);
+    }
+
     //menuItemList에 포함된 MenuItem을 순차적으로 보여주는 함수
-    public void printmenuItemList() {
-        System.out.println("[" + getcategoryName() + " MENU]");
+    public void printMenuItemList() {
+        System.out.println("[" + getCategoryName() + " MENU]");
         int index = 0;
         for (MenuItem d : getMenuItemList()) {
             ++index;

@@ -29,7 +29,7 @@ public class Kiosk {
 
             for (Menu d : categoryList) {
                 ++indexMenu;
-                System.out.println(indexMenu + "." + d.getcategoryName());
+                System.out.println(indexMenu + "." + d.getCategoryName());
             }
             System.out.println("원하시는 메뉴의 번호를 입력하세요.\n" +
                     "(Kiosk 종료 - \"0\"번)");
@@ -41,14 +41,14 @@ public class Kiosk {
                 menuNumber = scanner.nextInt();
                 switch (menuNumber) {
                     case 1:
-                        categoryList.get(menuNumber - 1).printmenuItemList();
+                        categoryList.get(menuNumber - 1).printMenuItemList();
 
                         break;
                     case 2:
-                        categoryList.get(menuNumber - 1).printmenuItemList();
+                        categoryList.get(menuNumber - 1).printMenuItemList();
                         break;
                     case 3:
-                        categoryList.get(menuNumber - 1).printmenuItemList();
+                        categoryList.get(menuNumber - 1).printMenuItemList();
                         break;
                     case 0:
                         System.out.println("Kiosk가 종료됩니다.\n" +
@@ -77,12 +77,12 @@ public class Kiosk {
                             System.out.println(categoryList.get(menuNumber - 1).getMenuItemList().get(menuItemNumber - 1).getName() + "를 선택하셨습니다.\n" +
                                     "결제금액은 " + categoryList.get(menuNumber - 1).getMenuItemList().get(menuItemNumber - 1).getPrice() + "원 입니다.\n" +
                                     "감사합니다. 좋은 하루 되세요");
-                            categoryList.get(menuNumber - 1).printmenuItemList();
+                            categoryList.get(menuNumber - 1).printMenuItemList();
                         }
                     } catch (Exception e) {
                         System.out.println("잘못된 번호입니다.");
                         scanner.nextLine();
-                        categoryList.get(menuNumber - 1).printmenuItemList();
+                        categoryList.get(menuNumber - 1).printMenuItemList();
                     }
                 }
             } catch (Exception e) {
