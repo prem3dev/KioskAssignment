@@ -15,7 +15,7 @@ public class Main {
         addMeuItemList.add(new MenuItem("HamBurger", 5400, "비프패티를 기반으로 야채가 들어간 기본버거"));
         //Kiosk 클래스 생성자를 이용하여 MenuItem추가리스트를 MenuItemList에 추가
         Kiosk kiosk = new Kiosk(addMeuItemList);
-
+        //start 함수
         kiosk.start();
     }
 }

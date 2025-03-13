@@ -2,33 +2,40 @@ package kioskassignment;
 
 public class MenuItem {
 
-
     //속성
-    private String hanmbergerName;
-    private Integer hambergerPrice;
-    private String hambergerContents;
+    private String hamburgerName;
+    private Integer hamburgerPrice;
+    private String hamburgerContents;
 
-    MenuItem(String hamberName, Integer hambergerPrice, String hambergerContents) {
-        this.hanmbergerName = hamberName;
-        this.hambergerPrice = hambergerPrice;
-        this.hambergerContents = hambergerContents;
+    //생성자
+    MenuItem(String hamburgerName, Integer hamburgerPrice, String hamburgerContents) {
+        this.hamburgerName = hamburgerName;
+        this.hamburgerPrice = hamburgerPrice;
+        this.hamburgerContents = hamburgerContents;
     }
 
-    public String getHanmbergerName() {
-        return this.hanmbergerName;
+    //메서드
+    public String getHamburgerName() {
+        return this.hamburgerName;
     }
 
-    public Integer getHambergerPrice() {
-        return this.hambergerPrice;
+    public Integer getHamburgerPrice() {
+        return this.hamburgerPrice;
     }
 
-    public String getHambergerContents() {
-        return this.hambergerContents;
+    public String getHamburgerContents() {
+        return this.hamburgerContents;
     }
 
-    public void setMenuItem(String hambergerName, Integer hambergerPrice, String hambergerContents) {
-        this.hanmbergerName = hambergerName;
-        this.hambergerPrice = hambergerPrice;
-        this.hambergerContents = hambergerContents;
+    public void setHamburgerName(String hamburgerName) {
+        this.hamburgerName = hamburgerName;
+    }
+
+    public void setHamburgerPrice(Integer hamburgerPrice) {
+        this.hamburgerPrice = hamburgerPrice;
+    }
+
+    public void setHamburgerContents(String hamburgerContents) {
+        this.hamburgerContents = hamburgerContents;
     }
 }
