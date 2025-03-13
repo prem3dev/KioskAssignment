@@ -1,5 +1,7 @@
 package kioskassignment;
 
+import jdk.jfr.Category;
+
 import javax.lang.model.type.ArrayType;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,39 +57,43 @@ public class Kiosk {
                                 " 감사합니다. 좋은 하루 되세요");
                         return;
                 }
-                //nextInt()의 남은 개행 처리
                 scanner.nextLine();
                 //menuItem 선택 반복문
                 while (true) {
 
                     System.out.println("원하시는 메뉴의 번호를 입력하세요.\n" +
                             "(Kiosk 종료 - \"0\"번)\n" +
-                            "(이전화면 - \"9\"번)");
+                            "(이전화면 - \"" + ((categoryList.get(menuNumber-1).getMenuItemList().size()) + 1) + "\"번)");
                     //try - catch 문으로 예외처리
                     try {
                         // menuItem 선택 번호 입력과 이에 따른 이름과 가격 출력, 이전화면으로 이동, Kiosk 종료
                         int menuItemNumber = scanner.nextInt();
+                        // 0일 경우 종료
                         if (menuItemNumber == 0) {
                             System.out.println("Kiosk가 종료됩니다.\n" +
                                     " 감사합니다. 좋은 하루 되세요");
                             return;
-                        } else if (menuItemNumber == 9) {
+                            // 인덱스 수보다 1이 클 경우 이전화면
+                        } else if (menuItemNumber == (categoryList.get(menuNumber-1).getMenuItemList().size()) + 1) {
                             break;
-                        } else {
+                            // 0보다 크고 인덱스 수보다 작거나 같으면 주문 출력
+                        } else if (menuItemNumber > 0 && menuItemNumber <= categoryList.get(menuNumber-1).getMenuItemList().size()){
                             System.out.println(categoryList.get(menuNumber - 1).getMenuItemList().get(menuItemNumber - 1).getName() + "를 선택하셨습니다.\n" +
-                                    "결제금액은 " + categoryList.get(menuNumber - 1).getMenuItemList().get(menuItemNumber - 1).getPrice() + "원 입니다.\n" +
+                                    "결제 금액은 " + categoryList.get(menuNumber - 1).getMenuItemList().get(menuItemNumber - 1).getPrice() + "원 입니다.\n" +
                                     "감사합니다. 좋은 하루 되세요");
+                            //반복을 위해 menuItem 리스트 재출력
                             categoryList.get(menuNumber - 1).printMenuItemList();
-                        }
+                        //그 외는 예외 강제 발생
+                        } else throw new Exception();
                     } catch (Exception e) {
                         System.out.println("잘못된 번호입니다.");
                         scanner.nextLine();
+                        //catch로 인한 예외 이후에도 반복을 위해 menuItem 리스트 재출력
                         categoryList.get(menuNumber - 1).printMenuItemList();
                     }
                 }
             } catch (Exception e) {
                 System.out.println("잘못된 번호입니다.");
-                //nextInt()의 남은 개행 처리
                 scanner.nextLine();
             }
         }

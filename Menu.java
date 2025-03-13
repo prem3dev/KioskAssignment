@@ -51,5 +51,6 @@ public class Menu {
             System.out.println("--------------------");
             System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
         }
+        System.out.println("--------------------");
     }
 }

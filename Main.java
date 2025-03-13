@@ -22,7 +22,7 @@ public class Main {
         desserts.addMenuList(new MenuItem("iceCream", 2000, "시원한 바닐라 아이스크림"));
         // Kiosk 객체 생성
         Kiosk kiosk = new Kiosk();
-        // kiosk 클래스의 메서드를 사용하여 Menu객체들을 Kiosk 클래스 필드에 있는 menuList에 삽입
+        // kiosk 클래스의 메서드를 사용하여 Menu 객체들을 Kiosk 클래스 필드에 있는 menuList에 삽입
         kiosk.addMenu(burgers);
         kiosk.addMenu(drinks);
         kiosk.addMenu(desserts);
