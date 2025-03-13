@@ -26,7 +26,7 @@ public class Main {
         for(MenuItem d : menuItemList) {
             ++index;
             System.out.println("--------------------");
-            System.out.println(index + "." + " " + d.getHanmbergerName() + " " + d.getHambergerPrice() + " " + d.getHambergerContent());
+            System.out.println(index + "." + " " + d.getHamburgerName() + " " + d.getHamburgerPrice() + " " + d.getHamburgerContents());
         }
 
         //입력번호를 이용하여 선택 메뉴 출력
@@ -34,8 +34,8 @@ public class Main {
         System.out.println("원하시는 메뉴의 번호를 입력하세요");
         try {
             int inputNumber = scanner.nextInt();
-            System.out.println((menuItemList.get(inputNumber-1).getHanmbergerName()) + "를 선택하셨습니다.\n" +
-                    "결제 금액은 " + menuItemList.get(inputNumber-1).getHambergerPrice() + "원 입니다.\n" +
+            System.out.println((menuItemList.get(inputNumber-1).getHamburgerName()) + "를 선택하셨습니다.\n" +
+                    "결제 금액은 " + menuItemList.get(inputNumber-1).getHamburgerPrice() + "원 입니다.\n" +
                     "감사합니다. 좋은 하루 되세요");
         } catch (Exception e) {
             System.out.println("잘못된 번호입니다.");
