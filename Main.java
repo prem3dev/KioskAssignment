@@ -28,6 +28,7 @@ public class Main {
             System.out.println("--------------------");
             System.out.println(index + "." + " " + d.getHamburgerName() + " " + d.getHamburgerPrice() + " " + d.getHamburgerContents());
         }
+        System.out.println("--------------------");
 
         //입력번호를 이용하여 선택 메뉴 출력
 
