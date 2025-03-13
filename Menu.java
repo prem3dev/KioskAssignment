@@ -21,6 +21,7 @@ public class Menu {
     public String getcategoryName() {
         return this.categoryName;
     }
+
     //카테고리 이름을 설정하는 메서드
     public void setCategoryName(String name) {
         this.categoryName = name;
@@ -36,9 +37,14 @@ public class Menu {
     public List<MenuItem> getMenuItemList() {
         return menuItemList;
     }
+
     //menuItemList를 설정하는 메서드
     public void setMenuItemList(int setNumber, MenuItem menuItem) {
         menuItemList.set(setNumber, menuItem);
+    }
+
+    public int getCategorySize() {
+        return menuItemList.size();
     }
 
     //menuItemList에 포함된 MenuItem을 순차적으로 보여주는 함수
@@ -50,5 +56,6 @@ public class Menu {
             System.out.println("--------------------");
             System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
         }
+        System.out.println("--------------------");
     }
 }

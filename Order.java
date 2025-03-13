@@ -1,4 +1,43 @@
 package kioskassignment;
 
+import javax.swing.border.Border;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
+
+    private List<MenuItem> order = new ArrayList<>();
+
+    public void addOrderList(List<MenuItem> cart) {
+        order.addAll(cart);
+    }
+
+    public List<MenuItem> getOrder() {
+        return this.order;
+    }
+
+    public void setOrder(int orderNumber, MenuItem menuItem) {
+        order.set(orderNumber, menuItem);
+    }
+
+    public void printOrder() {
+        System.out.println("[ORDERS]");
+        if (getOrder().size() - 1 == 0) {
+            System.out.println("\"" + order.get(0).getName() + "\"" + "상품을 구매하시겠습니까?");
+        } else {
+            System.out.println("\"" + order.get(0).getName() + "\"" + " 외 " + (order.size() - 1) + "개의 상품을 구매하시겠습니까?");
+        }
+        System.out.println("--------------------");
+        System.out.println("[TOTAL]");
+        System.out.println(getTotalOrderPrice() + "원");
+        System.out.println("--------------------");
+    }
+
+    public Integer getTotalOrderPrice() {
+        Integer totalOrderPrice = 0;
+        for (MenuItem d : getOrder()) {
+            totalOrderPrice += d.getPrice();
+        }
+        return totalOrderPrice;
+    }
 }
