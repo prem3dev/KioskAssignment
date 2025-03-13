@@ -25,7 +25,7 @@ public class MenuItem {
     }
 
     public String getHamburgerContents() {
-        return this.getHamburgerContents();
+        return this.hamburgerContents;
     }
 
     public void setHamburgerName(String hamburgerName) {
