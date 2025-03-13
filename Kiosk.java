@@ -1,10 +1,13 @@
 package kioskassignment;
 
 import javax.lang.model.type.ArrayType;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.awt.SystemColor.menu;
 
@@ -21,15 +24,18 @@ public class Kiosk {
     }
 
     public void printCategory() {
-        int indexMenu = 0;
-        for (Menu d : categoryList) {
-            ++indexMenu;
-            System.out.println(indexMenu + "." + d.getcategoryName());
-        }
+        AtomicInteger indexCategory = new AtomicInteger(0);
+        System.out.println("[MAIN MENU]");
+        categoryList.stream().forEach(d -> {
+                    int currentIndex = indexCategory.incrementAndGet();
+                    System.out.println("--------------------");
+                    System.out.println(currentIndex + "." + d.getcategoryName());
+                }
+        );
+        System.out.println("--------------------");
     }
 
     public void printCategoryProcess() {
-        System.out.println("[MAIN MENU]");
         //향사된 for문에서 index를 활용하기 위해 변수선언
         printCategory();
         if (!cart.getCart().isEmpty()) {
@@ -62,13 +68,13 @@ public class Kiosk {
         if (menuNumber == 0) {
             System.exit(0);
         } else if (menuNumber <= categoryList.size() && menuNumber > 0) {
-            categoryList.get(menuNumber - 1).printmenuItemList();
+            categoryList.get(menuNumber - 1).printMenuItemList();
         } else throw new ArithmeticException();
     }
 
     public void outputIncludeCart(int menuNumber) throws ArithmeticException {
         if (menuNumber <= categoryList.size() && menuNumber > 0) {
-            categoryList.get(menuNumber - 1).printmenuItemList();
+            categoryList.get(menuNumber - 1).printMenuItemList();
         } else if (menuNumber == 0) {
             System.exit(0);
         } else if (menuNumber == categoryList.size() + 1) {
@@ -77,16 +83,20 @@ public class Kiosk {
         } else throw new ArithmeticException();
     }
 
-    public void removeCartMenuItem(int removeNumber) {
-        cart.addDeleteList(cart.getCart().get(removeNumber - 1));
-        cart.removeCart(removeNumber - 1);
+    public void cancelCartMenuItem(int cancelNumber) throws Exception {
+        int index = cancelNumber - 1;
+        if (index >= 0 && index < cart.getCart().size()) {
+            cart.addCancelList(cart.getCart().stream().filter(d -> d.equals(cart.getCart().get(index))).findFirst().orElse(null));
+            cart.removeCart(cart.getCart().stream().filter(d -> d.equals(cart.getCart().get(index))).findFirst().orElse(null));
+        }
+        else throw new Exception();
     }
 
-    public void backCartMenuItem(int removeNumber) {
-        int index = Math.abs(removeNumber) -1;
-        if (index >= 0 && index < cart.getDeleteList().size()) {
-            cart.addCart(cart.getDeleteList().get(index));
-            cart.removeDeleteList(index);
+    public void backCartMenuItem(int cancelNumber) {
+        int index = Math.abs(cancelNumber) - 1;
+        if (index >= 0 && index < cart.getCancelList().size()) {
+            cart.addCart(cart.getCancelList().stream().filter(d -> d.equals(cart.getCancelList().get(index))).findFirst().orElse(null));
+            cart.removeCancelList(cart.getCancelList().stream().filter(d -> d.equals(cart.getCancelList().get(index))).findFirst().orElse(null));
         } else {
             System.out.println("잘못된 번호입니다");
         }
@@ -98,11 +108,35 @@ public class Kiosk {
         cart.addCart(categoryList.get(menuNumber - 1).getMenuItemList().get(menuItemNumber - 1));
     }
 
+    public void orderDiscountProcess() {
+        while (true) {
+            System.out.println("할인 정보를 입력해 주세요");
+            System.out.println("1. 국가유공자 : 10% \n" +
+                    "2. 군인     :  5%\n" +
+                    "3. 학생     :  3%\n" +
+                    "4. 일반     :  0%");
+            try {
+                String input = scanner.next();
+                Integer discountNumber = Integer.parseInt(input);
+                if (discountNumber > 0 && discountNumber <= 4) {
+                   int discoutedNumber = (int) Math.round(Discount.applyDiscounting(discountNumber, (order.getTotalOrderPrice())));
+                    System.out.println("주문이 완료되었습니다." + "***** 주문하신 총 금액은 " + discoutedNumber + "원 입니다. *****");
+                    System.out.println("감사합니다. 좋은 하루 보내세요.");
+                    System.exit(0);
+                } else throw new Exception();
+            } catch (Exception e) {
+                System.out.println("잘못된 번호입니다.");
+                scanner.nextLine();
+            }
+        }
+    }
+
     // Kiosk객체 시작 메서드
     public void start() {
-        //반복문 시작
+        //반복문 시작과 루프 설정
         loop:
         while (true) {
+            // Menu 카테고리 출력 메서드
             printCategoryProcess();
             //menuItem을 선택하는 반복문에서 category를 선택할때 받은 입력번호를 사용하기위해 변수 선언
             int menuNumber = 0;
@@ -121,9 +155,7 @@ public class Kiosk {
                             try {
                                 int orderInput = scanner.nextInt();
                                 if (orderInput == 1) {
-                                    System.out.println("주문이 완료되었습니다." + "***** 주문하신 총 금액은 " + order.getTotalOrderPrice() + "원 입니다. *****");
-                                    System.out.println("감사합니다. 좋은 하루 보내세요.");
-                                    return;
+                                    orderDiscountProcess();
                                 } else if (orderInput == 2) {
                                     order.getOrder().clear();
                                     continue loop;
@@ -135,29 +167,29 @@ public class Kiosk {
                         }
                     } else if (menuNumber == categoryList.size() + 2) {
                         while (true) {
-                            cart.printRemoveProcess1();
+                            cart.printCancelProcess1();
                             try {
-                                int removeNumber = scanner.nextInt();
-                                    if (!cart.getDeleteList().isEmpty()) {
-                                     if ((removeNumber > 0) && (removeNumber <= cart.getCart().size())) {
-                                         removeCartMenuItem(removeNumber);
-                                     } else if (removeNumber == 0) {
-                                         return;
-                                     } else if (removeNumber == (cart.getCart().size() + 1)) {
-                                         continue loop;
-                                     } else if (removeNumber == (cart.getCart().size() + 2)) {
-                                         cart.getDeleteList().clear();
-                                         System.out.println("상품이 제거되었습니다.");
-                                         continue loop;
-                                     } else if (removeNumber < 0 && !cart.getDeleteList().isEmpty() && Math.abs(removeNumber) <= cart.getDeleteList().size()) {
-                                             backCartMenuItem(removeNumber);
-                                         } else throw new Exception();
-                                 } else  {
-                                    if ((removeNumber > 0) && (removeNumber <= cart.getCart().size())) {
-                                        removeCartMenuItem(removeNumber);
-                                    } else if (removeNumber == 0) {
+                                int cancelNumber = scanner.nextInt();
+                                if (!cart.getCancelList().isEmpty()) {
+                                    if ((cancelNumber > 0) && (cancelNumber <= cart.getCart().size())) {
+                                        cancelCartMenuItem(cancelNumber);
+                                    } else if (cancelNumber == 0) {
                                         return;
-                                    } else if (removeNumber == (cart.getCart().size() + 1)) {
+                                    } else if (cancelNumber == (cart.getCart().size() + 1)) {
+                                        continue loop;
+                                    } else if (cancelNumber == (cart.getCart().size() + 2)) {
+                                        cart.getCancelList().clear();
+                                        System.out.println("상품이 제거되었습니다.");
+                                        continue loop;
+                                    } else if (cancelNumber < 0 && Math.abs(cancelNumber) <= cart.getCancelList().size()) {
+                                        backCartMenuItem(cancelNumber);
+                                    } else throw new Exception();
+                                } else {
+                                    if ((cancelNumber > 0) && (cancelNumber <= cart.getCart().size())) {
+                                        cancelCartMenuItem(cancelNumber);
+                                    } else if (cancelNumber == 0) {
+                                        return;
+                                    } else if (cancelNumber == (cart.getCart().size() + 1)) {
                                         continue loop;
                                     } else throw new Exception();
                                 }
@@ -179,7 +211,7 @@ public class Kiosk {
                         if (cart.getCart().isEmpty()) {
                             if (menuItemNumber > 0 && menuItemNumber <= categoryList.get(menuNumber - 1).getMenuItemList().size()) {
                                 selectMenuItem(menuNumber, menuItemNumber);
-                                categoryList.get(menuNumber - 1).printmenuItemList();
+                                categoryList.get(menuNumber - 1).printMenuItemList();
                             } else if (menuItemNumber == 0) {
                                 return;
                             } else if (menuItemNumber == categoryList.get(menuNumber - 1).getMenuItemList().size() + 1) {
@@ -188,7 +220,7 @@ public class Kiosk {
                         } else {
                             if (menuItemNumber > 0 && menuItemNumber <= categoryList.get(menuNumber - 1).getMenuItemList().size()) {
                                 selectMenuItem(menuNumber, menuItemNumber);
-                                categoryList.get(menuNumber - 1).printmenuItemList();
+                                categoryList.get(menuNumber - 1).printMenuItemList();
                             } else if (menuItemNumber == 0) {
                                 return;
                             } else if (menuItemNumber == categoryList.get(menuNumber - 1).getMenuItemList().size() + 1) {
@@ -199,9 +231,7 @@ public class Kiosk {
                                     try {
                                         int orderInput = scanner.nextInt();
                                         if (orderInput == 1) {
-                                            System.out.println("주문이 완료되었습니다." + "***** 주문하신 총 금액은 " + order.getTotalOrderPrice() + "원 입니다. *****");
-                                            System.out.println("감사합니다. 좋은 하루 보내세요.");
-                                            return;
+                                            orderDiscountProcess();
                                         } else if (orderInput == 2) {
                                             order.getOrder().clear();
                                             continue loop;
@@ -213,33 +243,33 @@ public class Kiosk {
                                 }
                             } else if (menuItemNumber == categoryList.get(menuNumber - 1).getMenuItemList().size() + 2) {
                                 while (true) {
-                                    cart.printRemoveProcess2();
+                                    cart.printCancelProcess2();
                                     try {
-                                        int removeNumber = scanner.nextInt();
-                                        if (!cart.getDeleteList().isEmpty()) {
-                                            if ((removeNumber > 0) && (removeNumber <= cart.getCart().size())) {
-                                                removeCartMenuItem(removeNumber);
-                                            } else if (removeNumber == 0) {
+                                        int cancelNumber = scanner.nextInt();
+                                        if (!cart.getCancelList().isEmpty()) {
+                                            if ((cancelNumber > 0) && (cancelNumber <= cart.getCart().size())) {
+                                                cancelCartMenuItem(cancelNumber);
+                                            } else if (cancelNumber == 0) {
                                                 return;
-                                            } else if (removeNumber == (cart.getCart().size() + 1)) {
+                                            } else if (cancelNumber == (cart.getCart().size() + 1)) {
                                                 break;
-                                            } else if (removeNumber == (cart.getCart().size() + 2)) {
+                                            } else if (cancelNumber == (cart.getCart().size() + 2)) {
                                                 continue loop;
-                                            } else if (removeNumber == (cart.getCart().size() + 3)) {
-                                                cart.getDeleteList().clear();
+                                            } else if (cancelNumber == (cart.getCart().size() + 3)) {
+                                                cart.getCancelList().clear();
                                                 System.out.println("상품이 제거되었습니다.");
                                                 continue loop;
-                                            } else if (removeNumber < 0 && !cart.getDeleteList().isEmpty() && Math.abs(removeNumber) <= cart.getDeleteList().size()) {
-                                                backCartMenuItem(removeNumber);
+                                            } else if (cancelNumber < 0 && Math.abs(cancelNumber) <= cart.getCancelList().size()) {
+                                                backCartMenuItem(cancelNumber);
                                             } else throw new Exception();
                                         } else {
-                                            if ((removeNumber > 0) && (removeNumber <= cart.getCart().size())) {
-                                                removeCartMenuItem(removeNumber);
-                                            } else if (removeNumber == 0) {
+                                            if ((cancelNumber > 0) && (cancelNumber <= cart.getCart().size())) {
+                                                cancelCartMenuItem(cancelNumber);
+                                            } else if (cancelNumber == 0) {
                                                 return;
-                                            } else if (removeNumber == (cart.getCart().size() + 1)) {
+                                            } else if (cancelNumber == (cart.getCart().size() + 1)) {
                                                 break;
-                                            } else if (removeNumber == (cart.getCart().size() + 2)) {
+                                            } else if (cancelNumber == (cart.getCart().size() + 2)) {
                                                 continue loop;
                                             } else throw new Exception();
                                         }
@@ -248,14 +278,14 @@ public class Kiosk {
                                         scanner.nextLine();
                                     }
                                 }
-                                categoryList.get(menuNumber - 1).printmenuItemList();
+                                categoryList.get(menuNumber - 1).printMenuItemList();
                             } else if (menuItemNumber == categoryList.get(menuNumber - 1).getMenuItemList().size() + 3) {
                                 continue loop;
                             } else throw new Exception();
                         }
                     } catch (Exception e) {
                         System.out.println("잘못된 번호입니다.");
-                        categoryList.get(menuNumber - 1).printmenuItemList();
+                        categoryList.get(menuNumber - 1).printMenuItemList();
                         scanner.nextLine();
                     }
                 }

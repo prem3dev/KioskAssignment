@@ -2,6 +2,7 @@ package kioskassignment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Menu {
     //Menu 클래스 속성
@@ -48,14 +49,16 @@ public class Menu {
     }
 
     //menuItemList에 포함된 MenuItem을 순차적으로 보여주는 함수
-    public void printmenuItemList() {
-        System.out.println("[" + getcategoryName() + " MENU]");
-        int index = 0;
-        for (MenuItem d : getMenuItemList()) {
-            ++index;
-            System.out.println("--------------------");
-            System.out.println(index + "." + " " + d.getName() + " " + d.getPrice() + " " + d.getContents());
-        }
+
+    public void printMenuItemList() {
+        AtomicInteger index = new AtomicInteger(0);
+        System.out.println(getcategoryName());
+        getMenuItemList().stream().forEach(d -> {
+                    int presentIndex = index.incrementAndGet();
+                    System.out.println("--------------------");
+                    System.out.println(presentIndex + "." + d.getName() + " " + d.getPrice() + " " + d.getContents());
+                }
+        );
         System.out.println("--------------------");
     }
 }
