@@ -83,16 +83,16 @@ public class Kiosk {
 
     //장바구니에서 물품을 빼고 취소 리스트에 그 물품을 등록하는 메서드
     public void removeCartMenuItem(int removeNumber) {
-        cart.addDeleteList(cart.getCart().get(removeNumber - 1));
+        cart.addCancelList(cart.getCart().get(removeNumber - 1));
         cart.removeCart(removeNumber - 1);
     }
 
     //취소리스트에서 물품을 빼고 장바구니에 그 물품을 등록하는 메서드
     public void backCartMenuItem(int removeNumber) {
         int index = Math.abs(removeNumber) - 1;
-        if (index >= 0 && index < cart.getDeleteList().size()) {
-            cart.addCart(cart.getDeleteList().get(index));
-            cart.removeDeleteList(index);
+        if (index >= 0 && index < cart.getCancelList().size()) {
+            cart.addCart(cart.getCancelList().get(index));
+            cart.removeCancelList(index);
         } else {
             System.out.println("잘못된 번호입니다");
         }
@@ -126,7 +126,7 @@ public class Kiosk {
                     if (menuNumber == categoryList.size() + 1) {
                         //주문하기 반복문
                         while (true) {
-                            order.printOrder();
+                            order.printOrderProcess();
                             System.out.println("1. 주문      2. 메뉴판");
                             try {
                                 //주문 선택 번호 입력
@@ -157,7 +157,7 @@ public class Kiosk {
                                 //장바구니 취소 입력 받기
                                 int removeNumber = scanner.nextInt();
                                 //취소리스트가 출력된 경우
-                                if (!cart.getDeleteList().isEmpty()) {
+                                if (!cart.getCancelList().isEmpty()) {
                                     //장바구니에서 물품을 빼고 취소리스트에 추가
                                     if ((removeNumber > 0) && (removeNumber <= cart.getCart().size())) {
                                         removeCartMenuItem(removeNumber);
@@ -169,11 +169,11 @@ public class Kiosk {
                                         continue loop;
                                         //취소리스트에 있는 물품 제거하고 메뉴판으로 돌아가기
                                     } else if (removeNumber == (cart.getCart().size() + 2)) {
-                                        cart.getDeleteList().clear();
+                                        cart.getCancelList().clear();
                                         System.out.println("상품이 제거되었습니다.");
                                         continue loop;
                                         // 취소리스트에 있는 물품을 빼고 장바구니에 추가하기
-                                    } else if (removeNumber < 0 && !cart.getDeleteList().isEmpty() && Math.abs(removeNumber) <= cart.getDeleteList().size()) {
+                                    } else if (removeNumber < 0 && !cart.getCancelList().isEmpty() && Math.abs(removeNumber) <= cart.getCancelList().size()) {
                                         backCartMenuItem(removeNumber);
                                     } else throw new Exception();
                                     //취소리스트가 출력되지 않은 경우
@@ -229,7 +229,7 @@ public class Kiosk {
                                 order.addOrderList(cart.getCart());
                                 //주문하기 반복문
                                 while (true) {
-                                    order.printOrder();
+                                    order.printOrderProcess();
                                     System.out.println("1. 주문      2. 메뉴판");
                                     try {
                                         int orderInput = scanner.nextInt();
@@ -256,7 +256,7 @@ public class Kiosk {
                                     try {
                                         int removeNumber = scanner.nextInt();
                                         //취소리스트가 출력된 경우
-                                        if (!cart.getDeleteList().isEmpty()) {
+                                        if (!cart.getCancelList().isEmpty()) {
                                             //장바구니에서 물품을 빼고 취소리스트에 추가
                                             if ((removeNumber > 0) && (removeNumber <= cart.getCart().size())) {
                                                 removeCartMenuItem(removeNumber);
@@ -271,11 +271,11 @@ public class Kiosk {
                                                 continue loop;
                                                 //취소리스트에 있는 물품 제거하고 메뉴판으로 돌아가기
                                             } else if (removeNumber == (cart.getCart().size() + 3)) {
-                                                cart.getDeleteList().clear();
+                                                cart.getCancelList().clear();
                                                 System.out.println("상품이 제거되었습니다.");
                                                 continue loop;
                                                 // 취소리스트에 있는 물품을 빼고 장바구니에 추가하기
-                                            } else if (removeNumber < 0 && !cart.getDeleteList().isEmpty() && Math.abs(removeNumber) <= cart.getDeleteList().size()) {
+                                            } else if (removeNumber < 0 && !cart.getCancelList().isEmpty() && Math.abs(removeNumber) <= cart.getCancelList().size()) {
                                                 backCartMenuItem(removeNumber);
                                             } else throw new Exception();
                                             //취소리스트가 출력되지 않은 경우
