@@ -22,10 +22,13 @@ public class Kiosk {
         categoryList.add(menu);
     }
 
+    //스트림을 이용해 카테고리리스트를 전체 출력해주는 메서드
     public void printCategory() {
+        //인덱스 사용을 위해 AtomicInteger 객체 생성
         AtomicInteger indexCategory = new AtomicInteger(0);
         System.out.println("[MAIN MENU]");
         categoryList.stream().forEach(d -> {
+                    //AtomicInteger의 incrementAndGet함수를 이용하여 객체 index의 값을 1 증가시킨 후, 그 증가된 값을 반환
                     int currentIndex = indexCategory.incrementAndGet();
                     System.out.println("--------------------");
                     System.out.println(currentIndex + "." + d.getcategoryName());
