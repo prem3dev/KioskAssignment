@@ -24,10 +24,13 @@ public class Cart {
         cart.remove(menuItem);
     }
 
+    //스트림을 이용해 장바구니리스트를 전체 출력해주는 메서드
     public void printCart() {
+        //인덱스 사용을 위해 AtomicInteger 객체 생성
         AtomicInteger index = new AtomicInteger(0);
         System.out.println("[CART]");
         getCart().stream().forEach(d -> {
+                    //AtomicInteger의 incrementAndGet함수를 이용하여 객체 index의 값을 1 증가시킨 후, 그 증가된 값을 반환
                     int presentIndex = index.incrementAndGet();
                     System.out.println("--------------------");
                     System.out.println(presentIndex + "." + d.getName() + " " + d.getPrice() + " " + d.getContents());
@@ -61,10 +64,13 @@ public class Cart {
         cancelList.remove(menuItem);
     }
 
+    //스트림을 이용해 취소리스트를 전체 출력해주는 메서드
     public void printCancelList() {
+        //인덱스 사용을 위해 AtomicInteger 객체 생성
         AtomicInteger index = new AtomicInteger(0);
         System.out.println("[CANCEL]");
         getCancelList().stream().forEach(d -> {
+                    //AtomicInteger의 incrementAndGet함수를 이용하여 객체 index의 값을 1 증가시킨 후, 그 증가된 값을 반환
                     int presentIndex = index.incrementAndGet();
                     System.out.println("--------------------");
                     System.out.println(presentIndex + "." + d.getName() + " " + d.getPrice() + " " + d.getContents());
@@ -83,9 +89,9 @@ public class Cart {
             if (!getCart().isEmpty()) {
                 System.out.println("장바구니에서 빼실 품목의 번호를 한 개씩 입력해주세요");
             }
-                System.out.println("장바구니로 되돌리기를 원하실 경우 [CANCEL]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
-                System.out.println((getCart().size() + 1) + ". 처음으로   | 처음으로");
-                System.out.println((getCart().size() + 2) + ". 취소하기   | 취소하기");
+            System.out.println("장바구니로 되돌리기를 원하실 경우 [CANCEL]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
+            System.out.println((getCart().size() + 1) + ". 처음으로   | 처음으로");
+            System.out.println((getCart().size() + 2) + ". 취소하기   | 취소하기");
         }
         System.out.println("0. 종료      | 종료");
     }
@@ -101,10 +107,10 @@ public class Cart {
             if (!getCart().isEmpty()) {
                 System.out.println("장바구니에서 빼실 품목의 번호를 한 개씩 입력해주세요");
             }
-                System.out.println("장바구니로 되돌리기를 원하실 경우 [CANCEL]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
-                System.out.println((getCart().size() + 1) + ". 이전으로   | 이전으로");
-                System.out.println((getCart().size() + 2) + ". 처음으로   | 처음으로");
-                System.out.println((getCart().size() + 3) + ". 취소하기   | 취소하기");
+            System.out.println("장바구니로 되돌리기를 원하실 경우 [CANCEL]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
+            System.out.println((getCart().size() + 1) + ". 이전으로   | 이전으로");
+            System.out.println((getCart().size() + 2) + ". 처음으로   | 처음으로");
+            System.out.println((getCart().size() + 3) + ". 취소하기   | 취소하기");
         }
         System.out.println("0. 종료      | 종료");
     }
