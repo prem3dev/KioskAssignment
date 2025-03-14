@@ -43,10 +43,6 @@ public class Menu {
         menuItemList.set(setNumber, menuItem);
     }
 
-    public int getCategorySize() {
-        return menuItemList.size();
-    }
-
     //menuItemList에 포함된 MenuItem을 순차적으로 보여주는 함수
     public void printmenuItemList() {
         System.out.println("[" + getcategoryName() + " MENU]");

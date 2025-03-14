@@ -72,19 +72,20 @@ public class Cart {
         }
         System.out.println("--------------------");
     }
+
     public void printRemoveProcess1() {
         printCart();
         if (getDeleteList().isEmpty()) {
             System.out.println("장바구니에서 빼실 품목의 번호를 한 개씩 입력해주세요");
-            System.out.println((getCart().size() + 1) + ". 처음으로   | 처음으로");
+            System.out.println((getCart().size() + 1) + ". 메뉴판   | 메뉴판");
         } else {
             printDeleteList();
             if (!getCart().isEmpty()) {
                 System.out.println("장바구니에서 빼실 품목의 번호를 한 개씩 입력해주세요");
             }
-                System.out.println("장바구니로 되돌리기를 원하실 경우 [DELETE]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
-                System.out.println((getCart().size() + 1) + ". 처음으로   | 처음으로");
-                System.out.println((getCart().size() + 2) + ". 취소하기   | 취소하기");
+            System.out.println("장바구니로 되돌리기를 원하실 경우 [DELETE]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
+            System.out.println((getCart().size() + 1) + ". 메뉴판    | 메뉴판");
+            System.out.println((getCart().size() + 2) + ". 취소하기   | 취소하기");
         }
         System.out.println("0. 종료      | 종료");
     }
@@ -94,16 +95,16 @@ public class Cart {
         if (getDeleteList().isEmpty()) {
             System.out.println("장바구니에서 빼실 품목의 번호를 한 개씩 입력해주세요");
             System.out.println((getCart().size() + 1) + ". 이전으로   | 이전으로");
-            System.out.println((getCart().size() + 2) + ". 처음으로   | 처음으로");
+            System.out.println((getCart().size() + 2) + ". 메뉴판    | 메뉴판");
         } else {
             printDeleteList();
             if (!getCart().isEmpty()) {
                 System.out.println("장바구니에서 빼실 품목의 번호를 한 개씩 입력해주세요");
             }
-                System.out.println("장바구니로 되돌리기를 원하실 경우 [DELETE]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
-                System.out.println((getCart().size() + 1) + ". 이전으로   | 이전으로");
-                System.out.println((getCart().size() + 2) + ". 처음으로   | 처음으로");
-                System.out.println((getCart().size() + 3) + ". 취소하기   | 취소하기");
+            System.out.println("장바구니로 되돌리기를 원하실 경우 [DELETE]품목번호 앞에 -를 붙여 한 개씩 입력해주세요. ex) -1 // -3");
+            System.out.println((getCart().size() + 1) + ". 이전으로   | 이전으로");
+            System.out.println((getCart().size() + 2) + ". 메뉴판    | 메뉴판");
+            System.out.println((getCart().size() + 3) + ". 취소하기   | 취소하기");
         }
         System.out.println("0. 종료      | 종료");
     }
